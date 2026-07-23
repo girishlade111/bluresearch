@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: sha256-WE4Weeosy3QunYJE3SdN/Flj1eemsKTYbQXqjUcb4rI=
+
 importers:
 
   .:
@@ -178,7 +180,7 @@ importers:
         version: 6.1.0(@opentelemetry/api@1.9.1)
       resumable-stream:
         specifier: ^2.2.12
-        version: 2.2.12
+        version: 2.2.12(@opentelemetry/api@1.9.1)
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -8965,7 +8967,12 @@ snapshots:
       onetime: 7.0.0
       signal-exit: 4.1.0
 
-  resumable-stream@2.2.12: {}
+  resumable-stream@2.2.12(@opentelemetry/api@1.9.1):
+    dependencies:
+      redis: 6.1.0(@opentelemetry/api@1.9.1)
+    transitivePeerDependencies:
+      - '@node-rs/xxhash'
+      - '@opentelemetry/api'
 
   retry@0.13.1: {}
 

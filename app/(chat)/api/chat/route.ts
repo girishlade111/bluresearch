@@ -10,7 +10,7 @@ import {
 } from "ai";
 import { checkBotId } from "botid/server";
 import { after } from "next/server";
-import { createResumableStreamContext } from "resumable-stream";
+
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import {
@@ -57,8 +57,9 @@ function isModelStreamActivity(chunk: { type: string }) {
   );
 }
 
-function getStreamContext() {
+async function getStreamContext() {
   try {
+    const { createResumableStreamContext } = await import("resumable-stream");
     return createResumableStreamContext({ waitUntil: after });
   } catch {
     return null;
@@ -408,7 +409,7 @@ export async function POST(request: Request) {
           return;
         }
         try {
-          const streamContext = getStreamContext();
+          const streamContext = await getStreamContext();
           if (streamContext) {
             const streamId = generateId();
             await createStreamId({ chatId: id, streamId });
