@@ -4,6 +4,9 @@ import type { NextConfig } from "next";
 const basePath = process.env.IS_DEMO === "1" ? "/demo" : "";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   ...(basePath
     ? {
         assetPrefix: "/demo-assets",
