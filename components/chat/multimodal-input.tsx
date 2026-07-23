@@ -794,7 +794,7 @@ function PureModelSelectorCompact({
   const { data: modelsData } = useSWR(
     `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api/models`,
     (url: string) => fetch(url).then((r) => r.json()),
-    { dedupingInterval: 3_600_000, revalidateOnFocus: false }
+    { dedupingInterval: 300_000, revalidateOnFocus: false }
   );
 
   const capabilities: Record<string, ModelCapabilities> | undefined =
@@ -857,14 +857,21 @@ function PureModelSelectorCompact({
             });
 
             const providerNames: Record<string, string> = {
+              "01-ai": "01.AI",
+              abacusai: "Abacus AI",
+              adept: "Adept",
+              ai21labs: "AI21 Labs",
+              aisingapore: "AI Singapore",
               alibaba: "Alibaba",
               anthropic: "Anthropic",
               "arcee-ai": "Arcee AI",
               bytedance: "ByteDance",
               cohere: "Cohere",
+              databricks: "Databricks",
               "deepseek-ai": "DeepSeek",
               deepseek: "DeepSeek",
               google: "Google",
+              ibm: "IBM",
               inception: "Inception",
               kwaipilot: "Kwaipilot",
               meituan: "Meituan",
@@ -876,18 +883,23 @@ function PureModelSelectorCompact({
               mistralai: "Mistral",
               moonshotai: "Moonshot AI",
               morph: "Morph",
+              "nv-mistralai": "NV-Mistral",
               nvidia: "NVIDIA",
               openai: "OpenAI",
               perplexity: "Perplexity",
               poolside: "Poolside",
               "prime-intellect": "Prime Intellect",
               qwen: "Qwen",
+              sarvamai: "Sarvam AI",
               "stepfun-ai": "Stepfun AI",
               thinkingmachines: "Thinking Machines",
-              "z-ai": "Z.AI",
+              upstage: "Upstage",
+              writer: "Writer",
               xai: "xAI",
               xiaomi: "Xiaomi",
+              "z-ai": "Z.AI",
               zai: "Zai",
+              zyphra: "Zyphra",
             };
 
             return sortedKeys.map((key) => (
