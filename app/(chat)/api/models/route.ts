@@ -1,6 +1,5 @@
 import { chatModels, getCapabilities } from "@/lib/ai/models";
 
-export const dynamic = "force-dynamic";
 
 export async function GET() {
   const capabilities = getCapabilities();
