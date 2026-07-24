@@ -101,7 +101,7 @@ export async function POST(request: Request) {
       ? selectedChatModel
       : DEFAULT_CHAT_MODEL;
 
-    await checkIpRateLimit(ipAddress(request));
+    await checkIpRateLimit(ipAddress(request) || "127.0.0.1");
 
     const userType: UserType = session.user.type;
 
