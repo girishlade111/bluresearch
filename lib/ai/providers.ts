@@ -3,14 +3,17 @@ import { customProvider } from "ai";
 import { isTestEnvironment } from "../constants";
 import { titleModel } from "./models";
 
-// NVIDIA NIM provider — OpenAI-compatible API
-const nim = createOpenAICompatible({
-  baseURL: "https://integrate.api.nvidia.com/v1",
-  headers: {
-    Authorization: `Bearer ${process.env.NVIDIA_NIM_API_KEY ?? ""}`,
-  },
-  name: "nvidia-nim",
-});
+// We create the provider dynamically so that process.env is read at request time,
+// not at module import time, which fixes the empty API key issue.
+function getNimProvider() {
+  return createOpenAICompatible({
+    baseURL: "https://integrate.api.nvidia.com/v1",
+    headers: {
+      Authorization: `Bearer ${process.env.NVIDIA_NIM_API_KEY ?? ""}`,
+    },
+    name: "nvidia-nim",
+  });
+}
 
 export const myProvider = isTestEnvironment
   ? (() => {
@@ -32,12 +35,12 @@ export function getLanguageModel(modelId: string) {
     return myProvider.languageModel(modelId);
   }
 
-  return nim.chatModel(modelId);
+  return getNimProvider().chatModel(modelId);
 }
 
 export function getTitleModel() {
   if (isTestEnvironment && myProvider) {
     return myProvider.languageModel("title-model");
   }
-  return nim.chatModel(titleModel.id);
+  return getNimProvider().chatModel(titleModel.id);
 }
