@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 
-import { isProductionEnvironment } from "@/lib/constants";
+
 import { ChatbotError } from "@/lib/errors";
 
 const MAX_MESSAGES = 10;
@@ -19,7 +19,7 @@ function getClient() {
 }
 
 export async function checkIpRateLimit(ip: string | undefined) {
-  if (!isProductionEnvironment || !ip) {
+  if (!ip) {
     return;
   }
 
